@@ -1,17 +1,19 @@
 package com.lid.outfitplannerbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "outfitplanner.users")
 public class User {
 
     @Id
     @GeneratedValue
-    private int userId;
+    @Column(name="users")
+    private Integer userId;
+    @Column
     private String username;
+    @Column
     private String password;
 
     public User() {
@@ -39,6 +41,15 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
     @Override
