@@ -4,13 +4,13 @@ import com.lid.outfitplannerbackend.model.User;
 import com.lid.outfitplannerbackend.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
 public class UserService implements IService<User> {
+
     @Autowired
     private UserRepository userRepository;
 
