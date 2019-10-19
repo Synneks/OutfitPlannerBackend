@@ -1,4 +1,4 @@
-package com.lid.outfitplannerbackend.controllers;
+package com.lid.outfitplannerbackend.DTOs;
 
 public class ClothingDTO {
     private int id;
