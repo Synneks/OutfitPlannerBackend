@@ -1,19 +1,30 @@
 package com.lid.outfitplannerbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "colors")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Color {
 
     @Id
     @GeneratedValue
     private int id;
+    @Column
     private String name;
+    @Column
     private int r;
+    @Column
     private int g;
+    @Column
     private int b;
+
+    @ManyToMany(mappedBy = "colors")
+    private Set<Clothing> clothing = new HashSet<>();
 
     public Color() {
     }
@@ -56,5 +67,13 @@ public class Color {
 
     public void setB(int b) {
         this.b = b;
+    }
+
+    public Set<Clothing> getClothing() {
+        return clothing;
+    }
+
+    public void setClothing(Set<Clothing> clothing) {
+        this.clothing = clothing;
     }
 }

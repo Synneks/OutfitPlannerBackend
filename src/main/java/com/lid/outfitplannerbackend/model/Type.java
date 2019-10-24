@@ -1,16 +1,23 @@
 package com.lid.outfitplannerbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "types")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Type {
 
     @Id
     @GeneratedValue
     private int id;
+    @Column
     private String name;
+
+    @OneToMany(mappedBy="type")
+    private Set<Clothing> clothes;
 
     public Type() {
     }
@@ -29,5 +36,13 @@ public class Type {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Clothing> getClothes() {
+        return clothes;
+    }
+
+    public void setClothes(Set<Clothing> clothes) {
+        this.clothes = clothes;
     }
 }

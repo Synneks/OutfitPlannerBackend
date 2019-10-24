@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -18,6 +19,12 @@ public class User {
     private String username;
     @Column
     private String password;
+
+    @OneToMany(mappedBy="user")
+    private Set<Clothing> clothes;
+
+    @OneToMany(mappedBy="user")
+    private Set<Outfit> outfits;
 
     public User() {
     }
@@ -44,6 +51,26 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Set<Clothing> getClothes() {
+        return clothes;
+    }
+
+    public void setClothes(Set<Clothing> clothes) {
+        this.clothes = clothes;
+    }
+
+    public Set<Outfit> getOutfits() {
+        return outfits;
+    }
+
+    public void setOutfits(Set<Outfit> outfits) {
+        this.outfits = outfits;
     }
 
     @Override
