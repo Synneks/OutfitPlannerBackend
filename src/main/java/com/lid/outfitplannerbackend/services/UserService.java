@@ -26,4 +26,19 @@ public class UserService implements IService<User> {
     public User getById(int id) {
         return userRepository.getOne(id);
     }
+
+    @Transactional
+    public User login(String username, String password) {
+        return userRepository.getByUsernameAndPassword(username, password);
+    }
+
+    @Transactional
+    public User register(String username, String password) {
+        if (userRepository.getByUsername(username) == null) {
+            return null;
+        } else {
+            userRepository.save(new User(username, password));
+            return userRepository.getByUsernameAndPassword(username, password);
+        }
+    }
 }
