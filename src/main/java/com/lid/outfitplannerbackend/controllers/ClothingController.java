@@ -2,11 +2,16 @@ package com.lid.outfitplannerbackend.controllers;
 
 
 import com.lid.outfitplannerbackend.DTOs.ClothingDTO;
+import com.lid.outfitplannerbackend.DTOs.ClothingDtoMapper;
 import com.lid.outfitplannerbackend.model.Clothing;
 import com.lid.outfitplannerbackend.services.ClothingService;
+import com.lid.outfitplannerbackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -15,36 +20,28 @@ public class ClothingController {
     @Autowired
     ClothingService clothingService;
 
-    @GetMapping(value = "/clothes")
-    public List<Clothing> getAll() {
-        return clothingService.getAll();
+    @Autowired
+    UserService userService;
+
+    @GetMapping(value = "users/{userId}/clothes")
+    public List<ClothingDTO> getAll(@PathVariable int userId) {
+        List<Clothing> clothes = userService.getById(userId).getClothes();
+        return clothes.stream().map(ClothingDtoMapper::entityToDto).collect(Collectors.toList());
+
     }
 
 
-    @GetMapping(value = "/clothes/{id}")
-    public ClothingDTO getById(@PathVariable int id) {
+    @GetMapping(value = "users/{userId}/clothes/{id}")
+    public ClothingDTO getById(@PathVariable int id,@PathVariable int userId) {
         Clothing clothing = clothingService.getById(id);
-        ClothingDTO clothingDTO = new ClothingDTO();
-        clothingDTO.setId(clothing.getId());
-        String myPicture = new String(clothing.getPicture());
-        clothingDTO.setPicture(myPicture);
-        return clothingDTO;
+        return ClothingDtoMapper.entityToDto(clothing);
     }
 
 
-    /*
-    @GetMapping(value = "/clothes/{id}")
-    public Clothing getById(@PathVariable int id) {
-        return clothingService.getById(id);
-    }
-    */
+    @PostMapping(value = "users/{userId}/clothes")
+    public Clothing save(@RequestBody ClothingDTO clothingDTO, @PathVariable int userId) {
+        Clothing clothing = clothingService.insert(ClothingDtoMapper.dtoToEntity(clothingDTO));
+        return userService.insertClothing(userId,clothing);
 
-    @PostMapping(value = "/clothes")
-    public Clothing save(@RequestBody ClothingDTO clothingDTO) {
-        byte[] myPicture = clothingDTO.getPicture().getBytes();
-        Clothing clothing = new Clothing();
-        clothing.setId(clothingDTO.getId());
-        clothing.setPicture(myPicture);
-        return clothingService.insert(clothing);
     }
 }
