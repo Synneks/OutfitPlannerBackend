@@ -23,7 +23,8 @@ public class User {
     @Column
     private String password;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="userid")
     @JsonIgnore
     private List<Clothing> clothes = new ArrayList<>();
 

@@ -42,8 +42,6 @@ public class Clothing {
     )
     private List<Color> colors = new ArrayList<>();
 
-
-
     public Integer getId() {
         return id;
     }
