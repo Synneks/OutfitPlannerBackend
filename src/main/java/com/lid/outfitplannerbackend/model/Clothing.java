@@ -3,7 +3,9 @@ package com.lid.outfitplannerbackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,37 +21,28 @@ public class Clothing {
     @Column(name = "picture")
     private byte[] picture;
 
-    @ManyToOne
-    @JoinColumn(name="userid", nullable=false)
-    private User user;
 
     @ManyToOne
     @JoinColumn(name="typeid", nullable=false)
     private Type type;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany
     @JoinTable(
             name = "clothes_categories",
             joinColumns = { @JoinColumn(name = "clothingid") },
             inverseJoinColumns = { @JoinColumn(name = "categoryid") }
     )
-    private Set<Category> categories = new HashSet<>();
+    private List<Category> categories = new ArrayList<>();
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany
     @JoinTable(
             name = "clothes_colors",
             joinColumns = { @JoinColumn(name = "clothingid") },
             inverseJoinColumns = { @JoinColumn(name = "colorid") }
     )
-    private Set<Color> colors = new HashSet<>();
+    private List<Color> colors = new ArrayList<>();
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "outfits_clothes",
-            joinColumns = { @JoinColumn(name = "clothingid") },
-            inverseJoinColumns = { @JoinColumn(name = "outfitid") }
-    )
-    private Set<Outfit> outfits = new HashSet<>();
+
 
     public Integer getId() {
         return id;
@@ -67,13 +60,6 @@ public class Clothing {
         this.picture = picture;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Type getType() {
         return type;
@@ -83,27 +69,19 @@ public class Clothing {
         this.type = type;
     }
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 
-    public Set<Color> getColors() {
+    public List<Color> getColors() {
         return colors;
     }
 
-    public void setColors(Set<Color> colors) {
+    public void setColors(List<Color> colors) {
         this.colors = colors;
-    }
-
-    public Set<Outfit> getOutfits() {
-        return outfits;
-    }
-
-    public void setOutfits(Set<Outfit> outfits) {
-        this.outfits = outfits;
     }
 }

@@ -3,8 +3,7 @@ package com.lid.outfitplannerbackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "colors")
@@ -23,8 +22,6 @@ public class Color {
     @Column
     private int b;
 
-    @ManyToMany(mappedBy = "colors")
-    private Set<Clothing> clothing = new HashSet<>();
 
     public Color() {
     }
@@ -69,11 +66,5 @@ public class Color {
         this.b = b;
     }
 
-    public Set<Clothing> getClothing() {
-        return clothing;
-    }
 
-    public void setClothing(Set<Clothing> clothing) {
-        this.clothing = clothing;
-    }
 }

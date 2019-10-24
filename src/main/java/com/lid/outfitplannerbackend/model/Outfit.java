@@ -3,8 +3,9 @@ package com.lid.outfitplannerbackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "outfits")
@@ -18,12 +19,13 @@ public class Outfit {
     @Column
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="userid", nullable=false)
-    private User user;
-
-    @ManyToMany(mappedBy = "outfits")
-    private Set<Clothing> clothing = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "outfits_clothes",
+            joinColumns = { @JoinColumn(name = "outfitid") },
+            inverseJoinColumns = { @JoinColumn(name = "clothingid") }
+    )
+    private List<Clothing> clothes = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -41,19 +43,11 @@ public class Outfit {
         this.name = name;
     }
 
-    public User getUser() {
-        return user;
+    public List<Clothing> getClothes() {
+        return clothes;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Set<Clothing> getClothing() {
-        return clothing;
-    }
-
-    public void setClothing(Set<Clothing> clothing) {
-        this.clothing = clothing;
+    public void setClothes(List<Clothing> clothes) {
+        this.clothes = clothes;
     }
 }

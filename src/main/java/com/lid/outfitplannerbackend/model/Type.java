@@ -3,7 +3,7 @@ package com.lid.outfitplannerbackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "types")
@@ -15,9 +15,6 @@ public class Type {
     private int id;
     @Column
     private String name;
-
-    @OneToMany(mappedBy="type")
-    private Set<Clothing> clothes;
 
     public Type() {
     }
@@ -38,11 +35,5 @@ public class Type {
         this.name = name;
     }
 
-    public Set<Clothing> getClothes() {
-        return clothes;
-    }
 
-    public void setClothes(Set<Clothing> clothes) {
-        this.clothes = clothes;
-    }
 }

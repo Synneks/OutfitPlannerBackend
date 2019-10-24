@@ -1,10 +1,13 @@
 package com.lid.outfitplannerbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "users")
@@ -20,11 +23,13 @@ public class User {
     @Column
     private String password;
 
-    @OneToMany(mappedBy="user")
-    private Set<Clothing> clothes;
+    @OneToMany
+    @JsonIgnore
+    private List<Clothing> clothes = new ArrayList<>();
 
-    @OneToMany(mappedBy="user")
-    private Set<Outfit> outfits;
+    @OneToMany
+    @JsonIgnore
+    private List<Outfit> outfits = new ArrayList<>();
 
     public User() {
     }
@@ -57,19 +62,19 @@ public class User {
         this.userId = userId;
     }
 
-    public Set<Clothing> getClothes() {
+    public List<Clothing> getClothes() {
         return clothes;
     }
 
-    public void setClothes(Set<Clothing> clothes) {
+    public void setClothes(List<Clothing> clothes) {
         this.clothes = clothes;
     }
 
-    public Set<Outfit> getOutfits() {
+    public List<Outfit> getOutfits() {
         return outfits;
     }
 
-    public void setOutfits(Set<Outfit> outfits) {
+    public void setOutfits(List<Outfit> outfits) {
         this.outfits = outfits;
     }
 
