@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 @Entity
 @Table(name = "users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -34,11 +33,22 @@ public class User {
     public User() {
     }
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.clothes = new ArrayList<>();
+        this.outfits = new ArrayList<>();
+    }
+
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -56,10 +66,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public List<Clothing> getClothes() {
