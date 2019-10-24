@@ -1,19 +1,27 @@
 package com.lid.outfitplannerbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+
 
 @Entity
+@Table(name = "colors")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Color {
 
     @Id
     @GeneratedValue
     private int id;
+    @Column
     private String name;
+    @Column
     private int r;
+    @Column
     private int g;
+    @Column
     private int b;
+
 
     public Color() {
     }
@@ -57,4 +65,6 @@ public class Color {
     public void setB(int b) {
         this.b = b;
     }
+
+
 }

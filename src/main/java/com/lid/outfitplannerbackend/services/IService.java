@@ -7,4 +7,6 @@ public interface IService<T> {
     List<T> getAll();
 
     T getById(int id);
+
+    //T insert(T entity);
 }

@@ -1,16 +1,21 @@
 package com.lid.outfitplannerbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "categories")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
 
     @Id
     @GeneratedValue
     private int id;
+
+    @Column
     private String name;
+
 
     public Category() {
     }
@@ -30,4 +35,6 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }
