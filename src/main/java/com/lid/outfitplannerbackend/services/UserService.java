@@ -1,5 +1,6 @@
 package com.lid.outfitplannerbackend.services;
 
+import com.lid.outfitplannerbackend.model.Clothing;
 import com.lid.outfitplannerbackend.model.User;
 import com.lid.outfitplannerbackend.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class UserService implements IService<User> {
     @Transactional
     public User getById(int id) {
         return userRepository.getOne(id);
+    }
+
+    public Clothing insertClothing(int userId, Clothing clothing){
+        User user = userRepository.getOne(userId);
+        user.getClothes().add(clothing);
+        userRepository.save(user);
+        return clothing;
     }
 
     @Transactional
