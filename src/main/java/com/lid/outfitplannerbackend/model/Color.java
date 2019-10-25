@@ -3,6 +3,7 @@ package com.lid.outfitplannerbackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -66,5 +67,31 @@ public class Color {
         this.b = b;
     }
 
+    @Override
+    public String toString() {
+        return "Color{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", r=" + r +
+                ", g=" + g +
+                ", b=" + b +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Color color = (Color) o;
+        return id == color.id &&
+                r == color.r &&
+                g == color.g &&
+                b == color.b &&
+                Objects.equals(name, color.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, r, g, b);
+    }
 }

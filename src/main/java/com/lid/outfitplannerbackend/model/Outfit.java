@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -49,5 +50,29 @@ public class Outfit {
 
     public void setClothes(List<Clothing> clothes) {
         this.clothes = clothes;
+    }
+
+    @Override
+    public String toString() {
+        return "Outfit{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", clothes=" + clothes +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Outfit outfit = (Outfit) o;
+        return Objects.equals(id, outfit.id) &&
+                Objects.equals(name, outfit.name) &&
+                Objects.equals(clothes, outfit.clothes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, clothes);
     }
 }

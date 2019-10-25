@@ -15,15 +15,16 @@ public class ClothingService implements IService<Clothing> {
     private ClothingRepository clothingRepository;
 
     public ClothingService(){
-
     }
 
     @Transactional
+    @Override
     public List<Clothing> getAll() {
         return clothingRepository.findAll();
     }
 
     @Transactional
+    @Override
     public Clothing getById(int id) {
         return clothingRepository.getOne(id);
     }
