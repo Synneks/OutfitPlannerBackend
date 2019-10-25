@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-public class TypeCategory implements IController<Type> {
+public class TypeController implements IController<Type> {
 
     @Autowired
     TypeService typeService;

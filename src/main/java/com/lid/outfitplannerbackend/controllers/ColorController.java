@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-public class ColorCategory implements IController<Color> {
+public class ColorController implements IController<Color> {
 
     @Autowired
     ColorService colorService;
