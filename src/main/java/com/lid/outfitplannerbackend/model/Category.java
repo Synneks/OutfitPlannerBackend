@@ -11,12 +11,11 @@ import java.util.Objects;
 public class Category {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
     private String name;
-
 
     public Category() {
     }
@@ -52,10 +51,5 @@ public class Category {
         Category category = (Category) o;
         return id == category.id &&
                 Objects.equals(name, category.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
     }
 }

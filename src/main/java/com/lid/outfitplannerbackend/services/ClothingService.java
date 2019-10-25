@@ -14,7 +14,7 @@ public class ClothingService implements IService<Clothing> {
     @Autowired
     private ClothingRepository clothingRepository;
 
-    public ClothingService(){
+    public ClothingService() {
     }
 
     @Transactional
@@ -29,7 +29,7 @@ public class ClothingService implements IService<Clothing> {
         return clothingRepository.getOne(id);
     }
 
-    public Clothing insert(Clothing clothing){
+    public Clothing insert(Clothing clothing) {
         return clothingRepository.save(clothing);
     }
 }

@@ -30,7 +30,7 @@ public class UserService implements IService<User> {
         return userRepository.getOne(id);
     }
 
-    public Clothing insertClothing(int userId, Clothing clothing){
+    public Clothing insertClothing(int userId, Clothing clothing) {
         User user = userRepository.getOne(userId);
         user.getClothes().add(clothing);
         userRepository.save(user);

@@ -14,7 +14,7 @@ import java.util.Objects;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer userId;
     @Column
@@ -22,8 +22,8 @@ public class User {
     @Column
     private String password;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="userid")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userid")
     @JsonIgnore
     private List<Clothing> clothes = new ArrayList<>();
 
@@ -35,6 +35,7 @@ public class User {
     }
 
     public User(String username, String password) {
+        this.userId = 0;
         this.username = username;
         this.password = password;
         this.clothes = new ArrayList<>();
@@ -103,8 +104,4 @@ public class User {
                 Objects.equals(password, user.password);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, username, password);
-    }
 }

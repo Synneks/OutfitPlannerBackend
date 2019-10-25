@@ -21,25 +21,16 @@ public class Clothing {
     @Column(name = "picture")
     private byte[] picture;
 
-
     @ManyToOne
-    @JoinColumn(name="typeid", nullable=false)
+    @JoinColumn(name = "typeid", nullable = false)
     private Type type;
 
     @ManyToMany
-    @JoinTable(
-            name = "clothes_categories",
-            joinColumns = { @JoinColumn(name = "clothingid") },
-            inverseJoinColumns = { @JoinColumn(name = "categoryid") }
-    )
+    @JoinTable(name = "clothes_categories", joinColumns = {@JoinColumn(name = "clothingid")}, inverseJoinColumns = {@JoinColumn(name = "categoryid")})
     private List<Category> categories = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(
-            name = "clothes_colors",
-            joinColumns = { @JoinColumn(name = "clothingid") },
-            inverseJoinColumns = { @JoinColumn(name = "colorid") }
-    )
+    @JoinTable(name = "clothes_colors", joinColumns = {@JoinColumn(name = "clothingid")}, inverseJoinColumns = {@JoinColumn(name = "colorid")})
     private List<Color> colors = new ArrayList<>();
 
     public Integer getId() {
@@ -57,7 +48,6 @@ public class Clothing {
     public void setPicture(byte[] picture) {
         this.picture = picture;
     }
-
 
     public Type getType() {
         return type;
@@ -104,12 +94,5 @@ public class Clothing {
                 Objects.equals(type, clothing.type) &&
                 Objects.equals(categories, clothing.categories) &&
                 Objects.equals(colors, clothing.colors);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(id, type, categories, colors);
-        result = 31 * result + Arrays.hashCode(picture);
-        return result;
     }
 }
