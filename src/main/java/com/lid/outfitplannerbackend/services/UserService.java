@@ -44,7 +44,7 @@ public class UserService implements IService<User> {
 
     @Transactional
     public User register(String username, String password) {
-        if (userRepository.getByUsername(username) == null) {
+        if (userRepository.getByUsername(username) != null) {
             return null;
         } else {
             userRepository.save(new User(username, password));
