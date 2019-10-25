@@ -11,10 +11,11 @@ import java.util.List;
 @Component
 public class ClothingService implements IService<Clothing> {
 
-    @Autowired
-    private ClothingRepository clothingRepository;
+    private final ClothingRepository clothingRepository;
 
-    public ClothingService() {
+    @Autowired
+    public ClothingService(ClothingRepository clothingRepository) {
+        this.clothingRepository = clothingRepository;
     }
 
     @Transactional

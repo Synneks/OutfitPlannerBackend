@@ -11,10 +11,11 @@ import java.util.List;
 @Component
 public class CategoryService implements IService<Category> {
 
-    @Autowired
-    CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    public CategoryService() {
+    @Autowired
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     @Transactional

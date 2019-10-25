@@ -11,10 +11,11 @@ import java.util.List;
 @Component
 public class TypeService implements IService<Type> {
 
-    @Autowired
-    private TypeRepository typeRepository;
+    private final TypeRepository typeRepository;
 
-    public TypeService() {
+    @Autowired
+    public TypeService(TypeRepository typeRepository) {
+        this.typeRepository = typeRepository;
     }
 
     @Transactional

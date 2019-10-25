@@ -8,14 +8,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserService implements IService<User> {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public UserService() {
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Transactional
@@ -27,7 +29,8 @@ public class UserService implements IService<User> {
     @Transactional
     @Override
     public User getById(int id) {
-        return userRepository.getOne(id);
+        Optional<User> user = userRepository.findById(id);
+        return user.orElse(null);
     }
 
     public Clothing insertClothing(int userId, Clothing clothing) {
