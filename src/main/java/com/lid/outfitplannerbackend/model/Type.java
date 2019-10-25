@@ -5,14 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.Objects;
 
-
 @Entity
 @Table(name = "types")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Type {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String name;
@@ -51,10 +50,5 @@ public class Type {
         Type type = (Type) o;
         return id == type.id &&
                 Objects.equals(name, type.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
     }
 }

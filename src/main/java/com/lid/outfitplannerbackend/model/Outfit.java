@@ -7,14 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 @Entity
 @Table(name = "outfits")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Outfit {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     @Column
@@ -23,8 +22,8 @@ public class Outfit {
     @ManyToMany
     @JoinTable(
             name = "outfits_clothes",
-            joinColumns = { @JoinColumn(name = "outfitid") },
-            inverseJoinColumns = { @JoinColumn(name = "clothingid") }
+            joinColumns = {@JoinColumn(name = "outfitid")},
+            inverseJoinColumns = {@JoinColumn(name = "clothingid")}
     )
     private List<Clothing> clothes = new ArrayList<>();
 
@@ -69,10 +68,5 @@ public class Outfit {
         return Objects.equals(id, outfit.id) &&
                 Objects.equals(name, outfit.name) &&
                 Objects.equals(clothes, outfit.clothes);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, clothes);
     }
 }
