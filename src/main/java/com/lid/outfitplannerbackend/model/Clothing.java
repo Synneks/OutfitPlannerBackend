@@ -26,19 +26,11 @@ public class Clothing {
     private Type type;
 
     @ManyToMany
-    @JoinTable(
-            name = "clothes_categories",
-            joinColumns = {@JoinColumn(name = "clothingid")},
-            inverseJoinColumns = {@JoinColumn(name = "categoryid")}
-    )
+    @JoinTable(name = "clothes_categories", joinColumns = {@JoinColumn(name = "clothingid")}, inverseJoinColumns = {@JoinColumn(name = "categoryid")})
     private List<Category> categories = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(
-            name = "clothes_colors",
-            joinColumns = {@JoinColumn(name = "clothingid")},
-            inverseJoinColumns = {@JoinColumn(name = "colorid")}
-    )
+    @JoinTable(name = "clothes_colors", joinColumns = {@JoinColumn(name = "clothingid")}, inverseJoinColumns = {@JoinColumn(name = "colorid")})
     private List<Color> colors = new ArrayList<>();
 
     public Integer getId() {

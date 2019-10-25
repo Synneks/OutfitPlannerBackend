@@ -4,7 +4,7 @@ import com.lid.outfitplannerbackend.model.Clothing;
 
 public class ClothingDtoMapper {
 
-    public static ClothingDTO entityToDto(Clothing clothing){
+    public static ClothingDTO entityToDto(Clothing clothing) {
         ClothingDTO clothingDTO = new ClothingDTO();
         clothingDTO.setId(clothing.getId());
         String myPicture = new String(clothing.getPicture());
@@ -15,7 +15,7 @@ public class ClothingDtoMapper {
         return clothingDTO;
     }
 
-    public static Clothing dtoToEntity(ClothingDTO clothingDTO){
+    public static Clothing dtoToEntity(ClothingDTO clothingDTO) {
         Clothing clothing = new Clothing();
         clothing.setId(clothingDTO.getId());
         byte[] myPicture = clothingDTO.getPicture().getBytes();
