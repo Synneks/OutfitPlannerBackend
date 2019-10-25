@@ -19,11 +19,13 @@ public class UserService implements IService<User> {
     }
 
     @Transactional
+    @Override
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
     @Transactional
+    @Override
     public User getById(int id) {
         return userRepository.getOne(id);
     }

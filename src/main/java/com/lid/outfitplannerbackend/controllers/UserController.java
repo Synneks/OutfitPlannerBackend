@@ -15,15 +15,17 @@ public class UserController implements IController<User> {
     UserService userService;
 
     @GetMapping(value = "/users")
+    @Override
     public List<User> getAll() {
         System.out.println(userService.getAll());
         return userService.getAll();
     }
 
-    @GetMapping(value = "/users/{userId}")
-    public User getById(@PathVariable int userId) {
-        System.out.println(userService.getById(userId));
-        return userService.getById(userId);
+    @GetMapping(value = "/users/{id}")
+    @Override
+    public User getById(@PathVariable int id) {
+        System.out.println(userService.getById(id));
+        return userService.getById(id);
     }
 
     @PostMapping(value = "/login")

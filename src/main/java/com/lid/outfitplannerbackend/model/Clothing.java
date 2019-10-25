@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 @Entity
 @Table(name = "clothes")
@@ -81,5 +81,35 @@ public class Clothing {
 
     public void setColors(List<Color> colors) {
         this.colors = colors;
+    }
+
+    @Override
+    public String toString() {
+        return "Clothing{" +
+                "id=" + id +
+                ", picture=" + Arrays.toString(picture) +
+                ", type=" + type +
+                ", categories=" + categories +
+                ", colors=" + colors +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Clothing clothing = (Clothing) o;
+        return Objects.equals(id, clothing.id) &&
+                Arrays.equals(picture, clothing.picture) &&
+                Objects.equals(type, clothing.type) &&
+                Objects.equals(categories, clothing.categories) &&
+                Objects.equals(colors, clothing.colors);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, type, categories, colors);
+        result = 31 * result + Arrays.hashCode(picture);
+        return result;
     }
 }
