@@ -3,42 +3,59 @@ package com.lid.outfitplannerbackend.controllers;
 import com.lid.outfitplannerbackend.model.User;
 import com.lid.outfitplannerbackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
-public class UserController implements IController<User> {
+public class UserController {
+
+    private final UserService userService;
 
     @Autowired
-    UserService userService;
-
-    @GetMapping(value = "/users")
-    @Override
-    public List<User> getAll() {
-        System.out.println(userService.getAll());
-        return userService.getAll();
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping(value = "/users/{id}")
-    @Override
-    public User getById(@PathVariable int id) {
-        System.out.println(userService.getById(id));
-        return userService.getById(id);
+    @GetMapping(value = "/users")
+    public ResponseEntity getAll() {
+        List<User> userList = userService.getAll();
+        ResponseEntity responseEntity;
+        if (!userList.isEmpty()) {
+            responseEntity = new ResponseEntity<>(userList, HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        System.out.println(responseEntity);
+        return responseEntity;
     }
 
     @PostMapping(value = "/login")
-    public User login(@RequestBody User user) {
+    public ResponseEntity login(@RequestBody User user) {
         User result = userService.login(user.getUsername(), user.getPassword());
-        System.out.println(user);
-        return result;
+        ResponseEntity responseEntity;
+        if (result != null) {
+            responseEntity = new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity<>("The username or password combination is incorrect!", HttpStatus.NOT_FOUND);
+        }
+        System.out.println(responseEntity);
+        return responseEntity;
     }
 
     @PostMapping(value = "/register")
-    public User register(@RequestBody User user) {
+    public ResponseEntity register(@RequestBody User user) {
         User result = userService.register(user.getUsername(), user.getPassword());
-        System.out.println(user);
-        return result;
+        ResponseEntity responseEntity;
+        if (result != null) {
+            responseEntity = new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity<>("Username is not available!", HttpStatus.CONFLICT);
+        }
+        System.out.println(responseEntity);
+        return responseEntity;
     }
 }

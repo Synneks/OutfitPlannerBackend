@@ -11,10 +11,11 @@ import java.util.List;
 @Component
 public class ColorService implements IService<Color> {
 
-    @Autowired
-    private ColorRepository colorRepository;
+    private final ColorRepository colorRepository;
 
-    public ColorService() {
+    @Autowired
+    public ColorService(ColorRepository colorRepository) {
+        this.colorRepository = colorRepository;
     }
 
     @Transactional

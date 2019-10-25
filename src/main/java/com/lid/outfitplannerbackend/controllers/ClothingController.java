@@ -15,11 +15,15 @@ import java.util.stream.Collectors;
 @RestController
 public class ClothingController {
 
-    @Autowired
-    ClothingService clothingService;
+    private final ClothingService clothingService;
+
+    private final UserService userService;
 
     @Autowired
-    UserService userService;
+    public ClothingController(ClothingService clothingService, UserService userService) {
+        this.clothingService = clothingService;
+        this.userService = userService;
+    }
 
     @GetMapping(value = "users/{userId}/clothes")
     public List<ClothingDTO> getAll(@PathVariable int userId) {

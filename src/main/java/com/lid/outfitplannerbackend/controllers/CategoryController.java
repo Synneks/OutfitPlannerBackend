@@ -3,31 +3,35 @@ package com.lid.outfitplannerbackend.controllers;
 import com.lid.outfitplannerbackend.model.Category;
 import com.lid.outfitplannerbackend.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
-public class CategoryController implements IController<Category> {
+public class CategoryController {
+
+    private final CategoryService categoryService;
 
     @Autowired
-    CategoryService categoryService;
-
-    @GetMapping(value = "/categories")
-    @Override
-    public List<Category> getAll() {
-        System.out.println(categoryService.getAll());
-        return categoryService.getAll();
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
-    @GetMapping(value = "/categories/{id}")
-    @Override
-    public Category getById(@PathVariable int id) {
-        System.out.println(categoryService.getById(id));
-        return categoryService.getById(id);
+    @GetMapping(value = "/clothes/categories")
+    public ResponseEntity getAll() {
+        List<Category> categoryList = categoryService.getAll();
+        ResponseEntity responseEntity;
+        if (!categoryList.isEmpty()) {
+            responseEntity = new ResponseEntity<>(categoryList, HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity<>("No category found!", HttpStatus.NOT_FOUND);
+        }
+        System.out.println(responseEntity);
+        return responseEntity;
     }
 }

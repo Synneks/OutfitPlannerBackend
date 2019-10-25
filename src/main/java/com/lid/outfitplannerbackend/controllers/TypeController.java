@@ -3,31 +3,35 @@ package com.lid.outfitplannerbackend.controllers;
 import com.lid.outfitplannerbackend.model.Type;
 import com.lid.outfitplannerbackend.services.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
-public class TypeController implements IController<Type> {
+public class TypeController {
+
+    private final TypeService typeService;
 
     @Autowired
-    TypeService typeService;
-
-    @GetMapping(value = "/types")
-    @Override
-    public List<Type> getAll() {
-        System.out.println(typeService.getAll());
-        return typeService.getAll();
+    public TypeController(TypeService typeService) {
+        this.typeService = typeService;
     }
 
-    @GetMapping(value = "/types/{id}")
-    @Override
-    public Type getById(@PathVariable int id) {
-        System.out.println(typeService.getById(id));
-        return typeService.getById(id);
+    @GetMapping(value = "/clothes/types")
+    public ResponseEntity getAll() {
+        List<Type> typeList = typeService.getAll();
+        ResponseEntity responseEntity;
+        if (!typeList.isEmpty()) {
+            responseEntity = new ResponseEntity<>(typeList, HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity<>("No type found!", HttpStatus.NOT_FOUND);
+        }
+        System.out.println(responseEntity);
+        return responseEntity;
     }
 }
