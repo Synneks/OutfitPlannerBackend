@@ -34,6 +34,7 @@ public class User {
     public User() {
     }
 
+
     public User(String username, String password) {
         this.userId = 0;
         this.username = username;
@@ -42,12 +43,9 @@ public class User {
         this.outfits = new ArrayList<>();
     }
 
-    public int getUserId() {
-        return userId;
-    }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public Integer getUserId() {
+        return userId;
     }
 
     public void setUserId(Integer userId) {
