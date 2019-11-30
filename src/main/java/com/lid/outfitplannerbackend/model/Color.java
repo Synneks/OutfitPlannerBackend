@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "colors")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Color {
+public class Color implements Comparable<Color> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,11 +16,9 @@ public class Color {
     @Column
     private String name;
     @Column
-    private int r;
+    private double centerHsv;
     @Column
-    private int g;
-    @Column
-    private int b;
+    private double endHsv;
 
     public Color() {
     }
@@ -41,28 +39,20 @@ public class Color {
         this.name = name;
     }
 
-    public int getR() {
-        return r;
+    public double getCenterHsv() {
+        return centerHsv;
     }
 
-    public void setR(int r) {
-        this.r = r;
+    public void setCenterHsv(double centerHsv) {
+        this.centerHsv = centerHsv;
     }
 
-    public int getG() {
-        return g;
+    public double getEndHsv() {
+        return endHsv;
     }
 
-    public void setG(int g) {
-        this.g = g;
-    }
-
-    public int getB() {
-        return b;
-    }
-
-    public void setB(int b) {
-        this.b = b;
+    public void setEndHsv(double endHsv) {
+        this.endHsv = endHsv;
     }
 
     @Override
@@ -70,9 +60,8 @@ public class Color {
         return "Color{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", r=" + r +
-                ", g=" + g +
-                ", b=" + b +
+                ", centerHsv=" + centerHsv +
+                ", endHsv=" + endHsv +
                 '}';
     }
 
@@ -82,9 +71,14 @@ public class Color {
         if (o == null || getClass() != o.getClass()) return false;
         Color color = (Color) o;
         return id == color.id &&
-                r == color.r &&
-                g == color.g &&
-                b == color.b &&
+                Double.compare(color.centerHsv, centerHsv) == 0 &&
+                Double.compare(color.endHsv, endHsv) == 0 &&
                 Objects.equals(name, color.name);
     }
+
+    @Override
+    public int compareTo(Color o) {
+        return Double.compare(this.centerHsv, o.centerHsv);
+    }
 }
+
