@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -30,5 +32,52 @@ public class ColorService implements IService<Color> {
         return colorRepository.getOne(id);
     }
 
+    /*
+        nr: 1 = monochromatic
+            2 = complementary
+            3 = triad
+            4 = square
+     */
+    public List<Color> getGeometricMatchingColors(Color color, int nr) {
+        List<Color> colors = getAll();
+        Collections.sort(colors);
+        List<Color> matchingColors = new ArrayList<>();
+        int indexOfRequestedColor = colors.indexOf(color);
+        for (int i = 0; i < nr; i++) {
+            matchingColors.add(colors.get((indexOfRequestedColor + i * (12 / nr)) % 12));
+        }
+        return matchingColors;
+    }
 
+    public List<Color> getAnalogousMatchingColors(Color color) {
+        List<Color> colors = getAll();
+        Collections.sort(colors);
+        List<Color> matchingColors = new ArrayList<>();
+        int indexOfRequestedColor = colors.indexOf(color);
+        matchingColors.add(colors.get((indexOfRequestedColor + 11) % 12));
+        matchingColors.add(color);
+        matchingColors.add(colors.get((indexOfRequestedColor + 1) % 12));
+        return matchingColors;
+    }
+
+    public List<Color> getSplitComplementaryMatchingColors(Color color) {
+        List<Color> colors = getAll();
+        Collections.sort(colors);
+        List<Color> matchingColors = new ArrayList<>();
+        int indexOfRequestedColor = colors.indexOf(color);
+        matchingColors.add(color);
+        matchingColors.add(colors.get((indexOfRequestedColor + 5) % 12));
+        matchingColors.add(colors.get((indexOfRequestedColor + 7) % 12));
+        return matchingColors;
+    }
+
+    public List<List<Color>> getAllMatchingCombinations(Color color) {
+        List<List<Color>> colorCombinations = new ArrayList<>();
+        for (int i = 1; i <= 4; i++) {
+            colorCombinations.add(getGeometricMatchingColors(color, i));
+        }
+        colorCombinations.add(getAnalogousMatchingColors(color));
+        colorCombinations.add(getSplitComplementaryMatchingColors(color));
+        return colorCombinations;
+    }
 }
