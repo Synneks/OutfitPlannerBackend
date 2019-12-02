@@ -8,6 +8,8 @@ import com.lid.outfitplannerbackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,5 +43,10 @@ public class ClothingController {
     public Clothing save(@RequestBody ClothingDTO clothingDTO, @PathVariable int userId) {
         Clothing clothing = clothingService.insert(ClothingDtoMapper.dtoToEntity(clothingDTO));
         return userService.insertClothing(userId, clothing);
+    }
+
+    @GetMapping(value = "clothes/colors/{id}")
+    public void getColors(@PathVariable int id) throws IOException {
+        clothingService.distinguishColors(id);
     }
 }
