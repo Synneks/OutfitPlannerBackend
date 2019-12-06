@@ -42,6 +42,9 @@ public class ColorService implements IService<Color> {
         List<Color> colors = getAll();
         Collections.sort(colors);
         List<Color> matchingColors = new ArrayList<>();
+        matchingColors.add(colors.remove(12));
+        matchingColors.add(colors.remove(13));
+        matchingColors.add(colors.remove(14));
         int indexOfRequestedColor = colors.indexOf(color);
         for (int i = 0; i < nr; i++) {
             matchingColors.add(colors.get((indexOfRequestedColor + i * (12 / nr)) % 12));
@@ -53,6 +56,9 @@ public class ColorService implements IService<Color> {
         List<Color> colors = getAll();
         Collections.sort(colors);
         List<Color> matchingColors = new ArrayList<>();
+        matchingColors.add(colors.remove(12));
+        matchingColors.add(colors.remove(13));
+        matchingColors.add(colors.remove(14));
         int indexOfRequestedColor = colors.indexOf(color);
         matchingColors.add(colors.get((indexOfRequestedColor + 11) % 12));
         matchingColors.add(color);
@@ -64,6 +70,9 @@ public class ColorService implements IService<Color> {
         List<Color> colors = getAll();
         Collections.sort(colors);
         List<Color> matchingColors = new ArrayList<>();
+        matchingColors.add(colors.remove(12));
+        matchingColors.add(colors.remove(13));
+        matchingColors.add(colors.remove(14));
         int indexOfRequestedColor = colors.indexOf(color);
         matchingColors.add(color);
         matchingColors.add(colors.get((indexOfRequestedColor + 5) % 12));
