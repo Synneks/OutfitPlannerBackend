@@ -54,6 +54,8 @@ public class ClothingService implements IService<Clothing> {
         purple 		    #8000ff		270
         magenta 	    #ff00ff		300
         pink 		    #ff0080		330
+        black           #000000
+        white           #FFFFFF
         red 		    #ff0000		360
     */
 
@@ -64,8 +66,6 @@ public class ClothingService implements IService<Clothing> {
         for (Color color : colors) {
             colorFrequency.put(color, 0);
         }
-        int white = 0;
-        int black = 0;
         Clothing clothing = getById(clothingId);
         String imageData = new String(clothing.getPicture());
         String base64Data = imageData.split(",")[1];
@@ -80,13 +80,17 @@ public class ClothingService implements IService<Clothing> {
                 int g = (rgb >> 8) & 0xFF;
                 int b = (rgb) & 0xFF;
                 java.awt.Color.RGBtoHSB(r, g, b, hsb);
-                if (hsb[1] < 0.1 && hsb[2] > 0.9) white++;
-                else if (hsb[2] < 0.1) black++;
-                else {
+                if (hsb[2] < 0.1) {
+                    colorFrequency.put(colors.get(14), colorFrequency.get(colors.get(14)) + 1);//black
+                } else if (hsb[2] > 0.9 && hsb[1] < 0.1) {
+                    colorFrequency.put(colors.get(12), colorFrequency.get(colors.get(12)) + 1);//white
+                } else if (hsb[1] < 0.1) {
+                    colorFrequency.put(colors.get(13), colorFrequency.get(colors.get(13)) + 1);//gray
+                } else {
                     double start = 0;
                     float deg = hsb[0] * 360;
                     boolean found = false;
-                    for (Color color : colors) {
+                    for (Color color : colors.subList(0, 12)) {
                         if (deg >= start && deg < color.getEndHsv()) {
                             colorFrequency.put(color, colorFrequency.get(color) + 1);
                             found = true;
@@ -103,7 +107,5 @@ public class ClothingService implements IService<Clothing> {
         for (Color color : colors) {
             System.out.println(color.getName() + ": " + colorFrequency.get(color));
         }
-        System.out.println("white: " + white);
-        System.out.println("black: " + black);
     }
 }

@@ -16,7 +16,7 @@ public class Color implements Comparable<Color> {
     @Column
     private String name;
     @Column
-    private double centerHsv;
+    private String centerRgb;
     @Column
     private double endHsv;
 
@@ -39,12 +39,12 @@ public class Color implements Comparable<Color> {
         this.name = name;
     }
 
-    public double getCenterHsv() {
-        return centerHsv;
+    public String getCenterRgb() {
+        return centerRgb;
     }
 
-    public void setCenterHsv(double centerHsv) {
-        this.centerHsv = centerHsv;
+    public void setCenterRgb(String centerRgb) {
+        this.centerRgb = centerRgb;
     }
 
     public double getEndHsv() {
@@ -60,7 +60,7 @@ public class Color implements Comparable<Color> {
         return "Color{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", centerHsv=" + centerHsv +
+                ", centerRgb=" + centerRgb +
                 ", endHsv=" + endHsv +
                 '}';
     }
@@ -71,14 +71,14 @@ public class Color implements Comparable<Color> {
         if (o == null || getClass() != o.getClass()) return false;
         Color color = (Color) o;
         return id == color.id &&
-                Double.compare(color.centerHsv, centerHsv) == 0 &&
                 Double.compare(color.endHsv, endHsv) == 0 &&
-                Objects.equals(name, color.name);
+                Objects.equals(name, color.name) &&
+                Objects.equals(centerRgb, color.centerRgb);
     }
 
     @Override
     public int compareTo(Color o) {
-        return Double.compare(this.centerHsv, o.centerHsv);
+        return Double.compare(this.endHsv, o.endHsv);
     }
 }
 
