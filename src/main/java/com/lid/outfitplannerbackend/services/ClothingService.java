@@ -59,7 +59,7 @@ public class ClothingService implements IService<Clothing> {
         red 		    #ff0000		360
     */
 
-    public void distinguishColors(int clothingId) throws IOException {
+    public List<Color> distinguishColors(int clothingId) throws IOException {
         List<Color> colors = colorService.getAll();
         Collections.sort(colors);
         Map<Color, Integer> colorFrequency = new HashMap<>();
@@ -107,5 +107,7 @@ public class ClothingService implements IService<Clothing> {
         for (Color color : colors) {
             System.out.println(color.getName() + ": " + colorFrequency.get(color));
         }
+        return colors;
     }
+
 }
