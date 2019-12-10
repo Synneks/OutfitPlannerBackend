@@ -25,13 +25,10 @@ public class ColorController {
     @GetMapping(value = "/clothes/colors")
     public ResponseEntity getAll() {
         List<Color> colorList = colorService.getAll();
-        ResponseEntity responseEntity;
         if (!colorList.isEmpty()) {
-            responseEntity = new ResponseEntity<>(colorList, HttpStatus.OK);
+            return new ResponseEntity<>(colorList, HttpStatus.OK);
         } else {
-            responseEntity = new ResponseEntity<>("No color found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No color found!", HttpStatus.NOT_FOUND);
         }
-        System.out.println(responseEntity);
-        return responseEntity;
     }
 }

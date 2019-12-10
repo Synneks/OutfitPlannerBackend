@@ -25,13 +25,10 @@ public class TypeController {
     @GetMapping(value = "/clothes/types")
     public ResponseEntity getAll() {
         List<Type> typeList = typeService.getAll();
-        ResponseEntity responseEntity;
         if (!typeList.isEmpty()) {
-            responseEntity = new ResponseEntity<>(typeList, HttpStatus.OK);
+            return new ResponseEntity<>(typeList, HttpStatus.OK);
         } else {
-            responseEntity = new ResponseEntity<>("No type found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No type found!", HttpStatus.NOT_FOUND);
         }
-        System.out.println(responseEntity);
-        return responseEntity;
     }
 }
