@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class ClothingService implements IService<Clothing> {
@@ -57,8 +58,10 @@ public class ClothingService implements IService<Clothing> {
         String base64Data = imageData.split(",")[1];
         byte[] decodedBytes = Base64.getDecoder().decode(base64Data);
         ByteArrayInputStream bis = new ByteArrayInputStream(decodedBytes);
+        int threshHold = 0;
         try {
             BufferedImage image = ImageIO.read(bis);
+            threshHold = (int) (image.getHeight() * image.getWidth() * 0.01);
             for (int y = 0; y < image.getHeight(); y++) {
                 for (int x = 0; x < image.getWidth(); x++) {
                     int rgb = image.getRGB(x, y);
@@ -97,6 +100,7 @@ public class ClothingService implements IService<Clothing> {
         for (Color color : colors) {
             System.out.println(color.getName() + ": " + colorFrequency.get(color));
         }
-        return colors;
+        int limit = threshHold;
+        return colors.stream().filter(x -> colorFrequency.get(x) > limit).collect(Collectors.toList());
     }
 }
