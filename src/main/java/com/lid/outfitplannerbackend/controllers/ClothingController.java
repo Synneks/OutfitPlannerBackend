@@ -46,7 +46,7 @@ public class ClothingController {
         if (clothing != null) {
             return new ResponseEntity<>(ClothingDtoMapper.entityToDto(clothing), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Clothing found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Clothing not found!", HttpStatus.NOT_FOUND);
         }
     }
 
