@@ -25,13 +25,10 @@ public class CategoryController {
     @GetMapping(value = "/clothes/categories")
     public ResponseEntity getAll() {
         List<Category> categoryList = categoryService.getAll();
-        ResponseEntity responseEntity;
         if (!categoryList.isEmpty()) {
-            responseEntity = new ResponseEntity<>(categoryList, HttpStatus.OK);
+            return new ResponseEntity<>(categoryList, HttpStatus.OK);
         } else {
-            responseEntity = new ResponseEntity<>("No category found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No category found!", HttpStatus.NOT_FOUND);
         }
-        System.out.println(responseEntity);
-        return responseEntity;
     }
 }

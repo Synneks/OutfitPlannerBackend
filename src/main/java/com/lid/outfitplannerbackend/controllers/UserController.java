@@ -23,39 +23,30 @@ public class UserController {
     @GetMapping(value = "/users")
     public ResponseEntity getAll() {
         List<User> userList = userService.getAll();
-        ResponseEntity responseEntity;
         if (!userList.isEmpty()) {
-            responseEntity = new ResponseEntity<>(userList, HttpStatus.OK);
+            return new ResponseEntity<>(userList, HttpStatus.OK);
         } else {
-            responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        System.out.println(responseEntity);
-        return responseEntity;
     }
 
     @PostMapping(value = "/login")
     public ResponseEntity login(@RequestBody User user) {
         User result = userService.login(user.getUsername(), user.getPassword());
-        ResponseEntity responseEntity;
         if (result != null) {
-            responseEntity = new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } else {
-            responseEntity = new ResponseEntity<>("The username or password combination is incorrect!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("The username or password combination is incorrect!", HttpStatus.NOT_FOUND);
         }
-        System.out.println(responseEntity);
-        return responseEntity;
     }
 
     @PostMapping(value = "/register")
     public ResponseEntity register(@RequestBody User user) {
         User result = userService.register(user.getUsername(), user.getPassword());
-        ResponseEntity responseEntity;
         if (result != null) {
-            responseEntity = new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } else {
-            responseEntity = new ResponseEntity<>("Username is not available!", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Username is not available!", HttpStatus.CONFLICT);
         }
-        System.out.println(responseEntity);
-        return responseEntity;
     }
 }
