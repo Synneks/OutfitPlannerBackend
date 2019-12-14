@@ -54,4 +54,14 @@ public class OutfitController {
             return new ResponseEntity<>("Outfit could not be added to user!", HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping(value = "clothes/generateOutfits/")
+    public ResponseEntity generateOutfits(@RequestBody int idClothing, String category) {
+        try {
+            List<Outfit> outfit = outfitService.generateOutfits(idClothing, category);
+            return new ResponseEntity<>(outfit, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Clothing could not be updated!", HttpStatus.NOT_FOUND);
+        }
+    }
 }
