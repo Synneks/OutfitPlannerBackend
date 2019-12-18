@@ -2,6 +2,7 @@ package com.lid.outfitplannerbackend.services;
 
 import com.lid.outfitplannerbackend.model.Clothing;
 import com.lid.outfitplannerbackend.model.Color;
+import com.lid.outfitplannerbackend.model.Clothing;
 import com.lid.outfitplannerbackend.model.Outfit;
 import com.lid.outfitplannerbackend.persistence.OutfitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,11 @@ public class OutfitService implements IService<Outfit> {
 
     public Set<Outfit> generateOutfits(Clothing clothing) {
         Set<Outfit> outfits = new HashSet<>();
+        //mainColor = colorService.getMainColor(idClothing)
+        //cer armonii
+        //gasesc dupa categorie
+        //returnez nr de haine in functie de category
+
         List<Color> colors = clothing.getColors();
         Color firstColor = null;
         for (Color color : colors) {
@@ -60,4 +66,5 @@ public class OutfitService implements IService<Outfit> {
         }
         return outfits;
     }
-}
+
+   }
