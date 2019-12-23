@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @CrossOrigin
@@ -24,7 +25,6 @@ public class OutfitController {
     private final OutfitService outfitService;
 
     private final UserService userService;
-
 
     @Autowired
     public OutfitController(OutfitService outfitService, UserService userService) {
@@ -65,5 +65,13 @@ public class OutfitController {
         }
     }
 
-
+    @GetMapping(value = "clothes/generateOutfits/")
+    public ResponseEntity generateOutfits(@RequestBody int idClothing, String category) {
+        try {
+            Set<Outfit> outfit = outfitService.generateOutfits(idClothing, category);
+            return new ResponseEntity<>(outfit, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Clothing could not be updated!", HttpStatus.NOT_FOUND);
+        }
+    }
 }
