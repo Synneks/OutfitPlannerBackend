@@ -54,8 +54,9 @@ public class OutfitController {
     }
 
     @PostMapping(value = "users/{userId}/outfits")
-    public ResponseEntity save(@RequestBody Outfit outfit, @PathVariable int userId) {
+    public ResponseEntity save(@RequestBody OutfitDTO outfitDTO, @PathVariable int userId) {
         try {
+            Outfit outfit = OutfitDtoMapper.dtoToEntity(outfitDTO);
             outfit = outfitService.insert(outfit);
             outfit = userService.insertOutfit(userId, outfit);
             return new ResponseEntity<>(OutfitDtoMapper.entityToDto(outfit), HttpStatus.OK);
