@@ -1,6 +1,7 @@
 package com.lid.outfitplannerbackend.services;
 
 import com.lid.outfitplannerbackend.model.Clothing;
+import com.lid.outfitplannerbackend.model.Outfit;
 import com.lid.outfitplannerbackend.model.User;
 import com.lid.outfitplannerbackend.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,12 @@ public class UserService implements IService<User> {
             userRepository.save(new User(username, password));
             return userRepository.getByUsernameAndPassword(username, password);
         }
+    }
+
+    public Outfit insertOutfit(int userId, Outfit outfit) {
+        User user = userRepository.getOne(userId);
+        user.getOutfits().add(outfit);
+        userRepository.save(user);
+        return outfit;
     }
 }

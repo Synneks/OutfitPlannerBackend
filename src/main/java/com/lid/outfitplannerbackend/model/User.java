@@ -28,6 +28,7 @@ public class User {
     private List<Clothing> clothes = new ArrayList<>();
 
     @OneToMany
+    @JoinColumn(name = "userid", nullable = false)
     @JsonIgnore
     private List<Outfit> outfits = new ArrayList<>();
 
