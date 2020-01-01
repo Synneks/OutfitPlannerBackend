@@ -101,6 +101,6 @@ public class ClothingService implements IService<Clothing> {
             System.out.println(color.getName() + ": " + colorFrequency.get(color));
         }
         int limit = threshHold;
-        return colors.stream().filter(x -> colorFrequency.get(x) > limit).sorted().collect(Collectors.toList());
+        return colorFrequency.entrySet().stream().filter(x -> x.getValue() > limit).sorted(Comparator.comparing(Map.Entry::getValue)).map(x -> x.getKey()).collect(Collectors.toList());
     }
 }

@@ -11,14 +11,12 @@ import java.util.Objects;
 @Table(name = "outfits")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Outfit {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     @Column
     private String name;
-
     @ManyToMany
     @JoinTable(
             name = "outfits_clothes",
@@ -26,6 +24,12 @@ public class Outfit {
             inverseJoinColumns = {@JoinColumn(name = "clothingid")}
     )
     private List<Clothing> clothes = new ArrayList<>();
+    public Outfit() {
+    }
+
+    public Outfit(List<Clothing> clothes) {
+        this.clothes = clothes;
+    }
 
     public Integer getId() {
         return id;

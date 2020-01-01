@@ -1,11 +1,8 @@
 package com.lid.outfitplannerbackend.controllers;
 
-import com.lid.outfitplannerbackend.DTOs.ClothingDtoMapper;
 import com.lid.outfitplannerbackend.DTOs.OutfitDTO;
 import com.lid.outfitplannerbackend.DTOs.OutfitDtoMapper;
-import com.lid.outfitplannerbackend.model.Clothing;
 import com.lid.outfitplannerbackend.model.Outfit;
-import com.lid.outfitplannerbackend.services.ClothingService;
 import com.lid.outfitplannerbackend.services.OutfitService;
 import com.lid.outfitplannerbackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -65,13 +61,18 @@ public class OutfitController {
         }
     }
 
-    @GetMapping(value = "clothes/generateOutfits/")
-    public ResponseEntity generateOutfits(@RequestBody int idClothing, String category) {
+    @GetMapping(value = "clothes/generateOutfits/user/{userId}/clothing/{clothingId}/category/{categoryId}")
+    public ResponseEntity generateOutfits(@PathVariable int userId, @PathVariable int clothingId, @PathVariable int categoryId) {
         try {
-            Set<Outfit> outfit = outfitService.generateOutfits(idClothing, category);
-            return new ResponseEntity<>(outfit, HttpStatus.OK);
+            Set<Outfit> outfits = outfitService.generateOutfits(userId, clothingId, categoryId);
+            List<OutfitDTO> outfitDTOs = outfits.stream().map(OutfitDtoMapper::entityToDto).collect(Collectors.toList());
+            if (!outfitDTOs.isEmpty()) {
+                return new ResponseEntity<>(outfitDTOs, HttpStatus.OK);
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>("Clothing could not be updated!", HttpStatus.NOT_FOUND);
+            e.printStackTrace();
+            return new ResponseEntity<>("Outfits could not be generated! (Exception)", HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>("Outfits could not be generated!", HttpStatus.NOT_FOUND);
     }
 }

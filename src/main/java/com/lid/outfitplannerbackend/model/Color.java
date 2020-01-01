@@ -57,12 +57,7 @@ public class Color implements Comparable<Color> {
 
     @Override
     public String toString() {
-        return "Color{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", centerRgb=" + centerRgb +
-                ", endHsv=" + endHsv +
-                '}';
+        return "Color{" + name + '}';
     }
 
     @Override
