@@ -75,13 +75,13 @@ public class Clothing {
 
     @Override
     public String toString() {
-        return "Clothing{" +
-                "id=" + id +
-                ", picture=" + Arrays.toString(picture) +
-                ", type=" + type +
-                ", categories=" + categories +
-                ", colors=" + colors +
-                '}';
+//        return "Clothing{" +
+//                "id=" + id +
+//                ", type=" + type +
+//                ", categories=" + categories +
+//                ", colors=" + colors +
+//                '}';
+        return "((" + categories + colors + "))";
     }
 
     @Override
