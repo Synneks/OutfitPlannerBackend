@@ -70,8 +70,8 @@ public class OutfitService implements IService<Outfit> {
             List<Clothing> allClothes = getMatchingClothing(category, allClothesBackup, colorHarmony);
             for (int i = 0; i < allClothes.size(); i++) {
                 List<Clothing> clothesInOutfit = Arrays.asList(clothing, allClothes.get(i));
-                if (category.getName().equals("Winter")) {
-                    for (int j = 0; j < i; j++) {
+                if (category.getName().equals("Winter") && allClothes.size() >= 2) {
+                    for (int j = i; j < allClothes.size(); j++) {
                         if (!logicTypes.get(allClothes.get(j).getType().getName()).equals(logicTypes.get(allClothes.get(i).getType().getName()))) {
                             clothesInOutfit.add(allClothes.get(j));
                         }
