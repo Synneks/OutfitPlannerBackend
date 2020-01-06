@@ -82,9 +82,9 @@ public class ColorService implements IService<Color> {
 
     public List<List<Color>> getAllMatchingCombinations(Color color) {
         List<List<Color>> colorCombinations = new ArrayList<>();
-        for (int i = 1; i <= 4; i++) {
-            colorCombinations.add(getGeometricMatchingColors(color, i));
-        }
+        colorCombinations.add(getGeometricMatchingColors(color, 1));
+        colorCombinations.add(getGeometricMatchingColors(color, 3));
+        colorCombinations.add(getGeometricMatchingColors(color, 4));
         colorCombinations.add(getAnalogousMatchingColors(color));
         colorCombinations.add(getSplitComplementaryMatchingColors(color));
         return colorCombinations;
